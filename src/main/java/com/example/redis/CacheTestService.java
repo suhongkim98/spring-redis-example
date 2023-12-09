@@ -66,6 +66,7 @@ public class CacheTestService {
     }
 
 
+    @CacheEvict(value = "board", key = "#p0")
     public void deleteById(Long id) {
         boardRepository.delete(id);
     }
@@ -76,11 +77,6 @@ public class CacheTestService {
 
     public List<Board> findAll() {
         return boardRepository.findAll();
-    }
-
-    @CacheEvict(value = "board", key = "#p0")
-    public void deleteByIdWithCacheEvict(Long id) {
-        deleteById(id);
     }
 
     @CacheEvict(value = "boards")
