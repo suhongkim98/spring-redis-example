@@ -47,10 +47,10 @@ public class RedisConfiguration {
         RedisCacheConfiguration configuration = RedisCacheConfiguration.defaultCacheConfig()
                 .disableCachingNullValues() // null value 는 캐시에 저장하지 않음
                 .entryTtl(Duration.ofMinutes(30)) // 기본 캐시 지속시간
-                .prefixCacheNameWith("blah-service:cache:") // key prefix
+                .prefixCacheNameWith("blah-service:cache") // key prefix
                 .serializeValuesWith(RedisSerializationContext
                         .SerializationPair
-                        .fromSerializer(new GenericJackson2JsonRedisSerializer()));
+                        .fromSerializer(new GenericJackson2JsonRedisSerializer())); // 이 시리얼라이저는 자바앱끼리만 가능함
 
         return RedisCacheManager.RedisCacheManagerBuilder
                 .fromConnectionFactory(redisConnectionFactory)
