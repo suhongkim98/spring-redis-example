@@ -1,14 +1,17 @@
 package com.example.redis;
 
-import com.example.redis.vo.Board;
-import com.example.redis.vo.BoardRepository;
+import com.example.redis.domain.Board;
+import com.example.redis.domain.BoardRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.Cache;
+import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * **@Cacheable**
@@ -40,6 +43,7 @@ import java.util.List;
 public class CacheTestService {
 
     private final BoardRepository boardRepository;
+    private final CacheManager cacheManager;
 
     public Long createBoard(String title, String content) {
         Long id = System.currentTimeMillis();
@@ -50,6 +54,8 @@ public class CacheTestService {
                 .build();
 
         boardRepository.putBoard(board);
+
+        clearCacheBoardsByCacheManager();
         return id;
     }
 
@@ -62,6 +68,8 @@ public class CacheTestService {
                 .build();
 
         origin.merge(board);
+
+        clearCacheBoardsByCacheManager();
         return origin;
     }
 
@@ -69,6 +77,8 @@ public class CacheTestService {
     @CacheEvict(value = "board", key = "#p0")
     public void deleteById(Long id) {
         boardRepository.delete(id);
+
+        clearCacheBoardsByCacheManager();
     }
 
     public Board findById(Long id) {
@@ -98,5 +108,13 @@ public class CacheTestService {
     @Cacheable(value = "boards")
     public List<Board> findAllCacheable() {
         return findAll();
+    }
+
+    // @CacheEvict(value = "boards") 와 동일
+    private void clearCacheBoardsByCacheManager() {
+        Cache cache = cacheManager.getCache("boards");
+        if (Objects.nonNull(cache)) {
+            cache.clear();
+        }
     }
 }

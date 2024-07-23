@@ -1,6 +1,6 @@
 package com.example.redis;
 
-import com.example.redis.vo.Board;
+import com.example.redis.domain.Board;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,20 +15,17 @@ public class CacheTestController {
     @PostMapping("/boards")
     public Long createBoard() {
         Long id = cacheTestService.createBoard("hello", "world");
-        cacheTestService.clearBoardsCache();
         return id;
     }
 
     @PutMapping("/boards/{id}")
     public void updatedBoard(@PathVariable(value = "id") Long id) {
         cacheTestService.updateBoard(id, "hello22", "world");
-        cacheTestService.clearBoardsCache();
     }
 
     @DeleteMapping("/boards/{id}")
     public void deleteBoard(@PathVariable(value = "id") Long id) {
         cacheTestService.deleteById(id);
-        cacheTestService.clearBoardsCache();
     }
 
     @GetMapping("/boards/{id}")

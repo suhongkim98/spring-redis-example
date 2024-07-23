@@ -1,6 +1,6 @@
 package com.example.redis;
 
-import com.example.redis.vo.Board;
+import com.example.redis.domain.Board;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Assertions;

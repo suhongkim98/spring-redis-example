@@ -1,4 +1,4 @@
-package com.example.redis.vo;
+package com.example.redis.domain;
 
 import org.springframework.stereotype.Repository;
 
