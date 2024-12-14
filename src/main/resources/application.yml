@@ -1,5 +1,13 @@
 
-spring:
-  redis:
-    host: 127.0.0.1
-    port: 6379
+
+redis:
+  sentinel:
+    host: redis-sentinel-1, redis-sentinel-2, redis-sentinel-3
+    port: 26379
+    master: mymaster
+
+logging:
+  level:
+    org:
+      springframework:
+        cache: TRACE

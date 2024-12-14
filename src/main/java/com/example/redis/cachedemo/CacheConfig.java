@@ -1,4 +1,4 @@
-package com.example.redis.config;
+package com.example.redis.cachedemo;
 
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;

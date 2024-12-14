@@ -1,0 +1,15 @@
+networks:
+  app-tier:
+    driver: bridge
+
+services:
+  redis-single:
+    image: "bitnami/redis:7.2.4"
+    hostname: redis-single
+    container_name: redis-single
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+    ports:
+      - "6379:6379"
+    networks:
+      - app-tier

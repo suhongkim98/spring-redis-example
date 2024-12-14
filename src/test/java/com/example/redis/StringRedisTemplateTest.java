@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Import;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 
@@ -15,6 +16,7 @@ import org.springframework.data.redis.core.ValueOperations;
  * 문자열에 특화된 템플릿 제공
  */
 @SpringBootTest
+@Import({TestRedisConfig.class})
 public class StringRedisTemplateTest {
 
     @Autowired

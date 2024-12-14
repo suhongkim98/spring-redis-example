@@ -1,4 +1,4 @@
-package com.example.redis;
+package com.example.redis.cachedemo;
 
 import com.example.redis.domain.Board;
 import lombok.RequiredArgsConstructor;
