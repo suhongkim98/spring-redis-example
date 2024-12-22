@@ -1,4 +1,4 @@
-package com.example.redis.cachedemo;
+package com.example.redis.demo.cachedemo;
 
 import com.example.redis.domain.Board;
 import com.example.redis.domain.BoardRepository;

@@ -10,7 +10,7 @@
 * 파이프라이닝 데모
 
 # 시작하기
-로컬에서 테스트코드만 구동 시에는 `infra/forlocaltestcode/docker-compose.yml`을 구동한다.
+센티널 없이 싱글 레디스로 테스트 필요 시 `RedisConfig` 수정 및 `infra/forlocal/docker-compose.yml`을 구동
 * `Redis Instance Port`: 5100, 5101, 5102
 * `Redis Sentinel Port`: 5150, 5151, 5152
 ## 1. 로컬 도커 구동
@@ -35,4 +35,4 @@ info sentinel
 sentinel masters
 ```
 
-## 5. 레디스 마스터 노드 임의 종료하는 등 failover 테스트 해보기
+# 레디스 마스터 노드 임의 종료하는 등 failover 테스트 해보기
