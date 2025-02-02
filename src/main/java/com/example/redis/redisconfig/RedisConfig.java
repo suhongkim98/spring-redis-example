@@ -3,7 +3,6 @@ package com.example.redis.redisconfig;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.RedisNode;
 import org.springframework.data.redis.connection.RedisSentinelConfiguration;
@@ -28,7 +27,6 @@ public class RedisConfig {
     }
 
     @Bean
-    @Primary
     public LettuceConnectionFactory sentinelRedisConnectionFactory() {
         RedisSentinelConfiguration sentinelConfig = new RedisSentinelConfiguration()
                 .master(master);
@@ -40,8 +38,7 @@ public class RedisConfig {
         return new LettuceConnectionFactory(sentinelConfig);
     }
 
-    @Bean
-//    @Primary
+//    @Bean
     public LettuceConnectionFactory redisConnectionFactory() {
         return new LettuceConnectionFactory(new RedisStandaloneConfiguration("127.0.0.1", 6379));
     }

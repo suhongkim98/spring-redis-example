@@ -1,5 +1,6 @@
 package com.example.redis;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,12 +24,18 @@ public class RedisPipeliningTest {
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
 
+    private static final String givenKey = "item_list";
+
+    @AfterEach
+        // 모든 필드 데이터 삭제
+    void destroy() {
+        stringRedisTemplate.delete(givenKey); // 키 자체 삭제
+    }
 
     @Test
     void testExecutePipeline() {
         // given
         ListOperations<String, String> listOperations = stringRedisTemplate.opsForList();
-        String givenKey = "item_list";
         List<String> items = List.of("hello1", "hello2", "hello3");
 
         // when
@@ -45,5 +52,10 @@ public class RedisPipeliningTest {
         List<String> result = listOperations.range(givenKey, 0, -1);
         Assertions.assertNotNull(result);
         Assertions.assertEquals(items.size(), result.size());
+
+        // 파이프라이닝 내 명령어 실행 순서는 순서가 보장됨
+        Assertions.assertEquals(items.get(0), result.get(0));
+        Assertions.assertEquals(items.get(1), result.get(1));
+        Assertions.assertEquals(items.get(2), result.get(2));
     }
 }
