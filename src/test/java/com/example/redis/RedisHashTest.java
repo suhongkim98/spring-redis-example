@@ -77,6 +77,20 @@ public class RedisHashTest {
     }
 
     @Test
+    @DisplayName("존재하지 않는 키를 entries로 조회 시 empty map 리턴")
+    void testEntriesInvalidKey() {
+        // given
+        HashOperations<String, String, String> hashOps = stringRedisTemplate.opsForHash();
+
+        // when
+        Map<String, String> map = hashOps.entries("hahahahahaqzzdasdas");
+
+        // then
+        Assertions.assertNotNull(map);
+        Assertions.assertEquals(0, map.entrySet().size());
+    }
+
+    @Test
     @DisplayName("get 으로 해시키에 대해 특정 필드 데이터 조회 가능, HGET (key) (field)")
     void testGet() {
         // given
@@ -88,6 +102,32 @@ public class RedisHashTest {
         // then
         Assertions.assertNotNull(value);
         Assertions.assertNotEquals(0, value.length());
+    }
+
+    @Test
+    @DisplayName("get 으로 존재하지 않는 키의 필드 조회 시 null 리턴")
+    void testGetInvalidKey() {
+        // given
+        HashOperations<String, String, String> hashOps = stringRedisTemplate.opsForHash();
+
+        // when
+        String value = hashOps.get("asdqweqdhahahah", "invalidfield haha");
+
+        // then
+        Assertions.assertNull(value);
+    }
+
+    @Test
+    @DisplayName("get 으로 존재하는 키의 존재하지 않는 필드 조회 시 null 리턴")
+    void testGetInvalidField() {
+        // given
+        HashOperations<String, String, String> hashOps = stringRedisTemplate.opsForHash();
+
+        // when
+        String value = hashOps.get(testRedisKey, "invalidfield haha");
+
+        // then
+        Assertions.assertNull(value);
     }
 
     @Test
