@@ -1,14 +1,13 @@
 package com.example.redis;
 
 import com.example.redis.domain.Board;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.StringRedisTemplate;
+import tools.jackson.databind.ObjectMapper;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -25,7 +24,7 @@ public class RedisHashTest {
     private final String testRedisKey = "t_test";
 
     @BeforeEach // 데이터 10개 세팅
-    void setup() throws JsonProcessingException {
+    void setup() {
         HashOperations<String, String, String> hashOps = stringRedisTemplate.opsForHash();
 
         for (int i = 0 ; i < 10 ; i++) {

@@ -1,8 +1,6 @@
 package com.example.redis;
 
 import com.example.redis.domain.Board;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
+import tools.jackson.databind.ObjectMapper;
 
 /**
  * StringRedisTemplate 은 직렬화 역직렬화 시 String 사용
@@ -53,7 +52,7 @@ public class StringRedisTemplateTest {
     // 확장성을 위해 객체도 jsonString 으로 변환하는 방식으로 StringRestTemplate 으로 처리하는 것이 좋아보임
     // (나중엔 자바 애플리케이션이 아닐 수 있기에)
     @Test
-    void testSerializeObjectToString() throws JsonProcessingException {
+    void testSerializeObjectToString() {
         // given
         ValueOperations<String, String> stringValueOperations = stringRedisTemplate.opsForValue();
         Board board = Board.builder()
